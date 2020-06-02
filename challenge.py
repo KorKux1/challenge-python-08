@@ -1,9 +1,16 @@
 import time
+from datetime import datetime
 
 
-def finish_date():
-    # You have to code here!!
 
+def finish_date(func):
+    def wrapper(*args, **kwargs):
+        func(*args, **kwargs)
+        timestamp = time.time()
+        date = datetime.fromtimestamp(timestamp)
+        date_format = date.strftime("%d/%m/%Y - %H:%M:%S")
+        print(f'The function {func.__name__} ended at {date_format}')
+    return wrapper
 
 @finish_date
 def palindrome(string):
